@@ -11,7 +11,9 @@
 			"./src/**",
 			"./test/**",
 			"./carrinho/src/**",
-			"./carrinho/test/**"
+			"./carrinho/test/**",
+			"./livraria/src/**",
+			"./livraria/test/**"
 		]
 	},
 	"formatter": {

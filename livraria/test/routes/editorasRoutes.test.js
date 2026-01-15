@@ -1,3 +1,4 @@
+import { describe, expect, it, jest } from '@jest/globals'
 import request from 'supertest'
 import app from '../../src/app.js'
 
@@ -56,7 +57,12 @@ describe('PUT /editoras/:id', () => {
     ['cidade', { cidade: 'SP' }],
     ['email', { email: 'cdc@cdc.com' }],
   ])('Deve atualizar o campo %s', async param => {
-    await request(app).put(`/editoras/${idResposta}`).send(param).expect(204)
+    const requisicao = { request }
+    const spy = jest.spyOn(requisicao, 'request')
+
+    await requisicao.request(app).put(`/editoras/${idResposta}`).send(param).expect(204)
+
+    expect(spy).toHaveBeenCalled()
   })
 })
 

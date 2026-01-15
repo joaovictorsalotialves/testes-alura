@@ -24,6 +24,12 @@ describe('GET /editoras', () => {
   })
 })
 
+describe('GET /editoras/:id', () => {
+  it('Deve retorna uma editora pelo id', async () => {
+    await request(app).get(`/editoras/${idResposta}`).expect(200)
+  })
+})
+
 let idResposta
 describe('POST /editoras', () => {
   it('Deve adicionar uma nova editora', async () => {
@@ -38,16 +44,25 @@ describe('POST /editoras', () => {
 
     idResposta = resposta.body.content.id
   })
+
+  it('Deve nao adicionar nada ao passar o body vazio', async () => {
+    await request(app).post('/editoras').send({}).expect(400)
+  })
+})
+
+describe('PUT /editoras/:id', () => {
+  it('Deve atualizar uma editora pelo id', async () => {
+    await request(app)
+      .put(`/editoras/${idResposta}`)
+      .send({
+        nome: 'Casa do Código',
+      })
+      .expect(204)
+  })
 })
 
 describe('DELETE /editoras/:id', () => {
   it('Deve deletar uma editora pelo id', async () => {
     await request(app).delete(`/editoras/${idResposta}`).expect(200)
-  })
-})
-
-describe('GET /editoras/:id', () => {
-  it('Deve retorna uma editora pelo id', async () => {
-    await request(app).get(`/editoras/${idResposta}`).expect(200)
   })
 })
